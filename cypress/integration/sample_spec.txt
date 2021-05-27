@@ -1,0 +1,63 @@
+describe('Authentification', () => {
+  it('Register', () => {
+    cy.visit('http://localhost:4200')
+    cy.get('#signup-button').click()
+    cy.get('#username').type("BARGHOUDA Mohamed Lamine")
+    cy.get('#email').type("laminebarghouda2@gmail.com")
+    cy.get('#password').type("laminebarghouda")
+    cy.get('#register').click().wait(2000)
+  })
+  
+    it('Login', () => {
+    cy.visit('http://localhost:4200')
+    cy.get('#email').type("laminebarghouda2@gmail.com")
+    cy.get('#password').type("laminebarghouda")
+    cy.get('#login-button').click().wait(2000)
+  })
+})
+
+
+describe('Posts CRUD', () => {
+  it('Add Post', () => {
+    cy.visit('http://localhost:4200')
+    cy.get('#email').type("laminebarghouda2@gmail.com")
+    cy.get('#password').type("laminebarghouda")
+    cy.get('#login-button').click()
+    cy.get('#add-post-button').wait(2000).click()
+    cy.get('#title').type("COVID-19 ruined my life")
+    cy.get('#body').type("I have no idea what I’m doing right now. My plans were completely ruined by all of this")
+    cy.get('#submit').click().wait(3000)
+    cy.get('app-post-card:last').contains('COVID-19 ruined my life').wait(2000)
+  })
+  
+  it('Show Post Details', () => {
+    cy.visit('http://localhost:4200')
+    cy.get('#email').type("laminebarghouda2@gmail.com")
+    cy.get('#password').type("laminebarghouda")
+    cy.get('#login-button').click().wait(2000)
+    cy.get('app-post-card:last').click().get('.post-card-title').contains('COVID-19 ruined my life').wait(2000)
+  })
+  
+    it('Add Comment', () => {
+    cy.visit('http://localhost:4200')
+    cy.get('#email').type("laminebarghouda2@gmail.com")
+    cy.get('#password').type("laminebarghouda")
+    cy.get('#login-button').click().wait(2000)
+    cy.get('app-post-card:last').click()
+    cy.get('.comment-name').type('BARGHOUDA Mohamed Lamine')
+    cy.get('.comment-body').type('Same here !!')
+    cy.get('.submit').click()
+    cy.get('.posted-comment-title').contains('BARGHOUDA Mohamed Lamine')
+    cy.get('.posted-comment-body').contains('Same here !!').wait(2000)
+  })
+  
+    it('Delete Post', () => {
+    cy.visit('http://localhost:4200')
+    cy.get('#email').type("laminebarghouda2@gmail.com")
+    cy.get('#password').type("laminebarghouda")
+    cy.get('#login-button').click().wait(2000)
+    cy.get('app-post-card:last').get('.x-button').click().wait(2000)
+    cy.get('app-post-card').should('not.exist')
+  })
+  
+})

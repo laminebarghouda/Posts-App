@@ -1,0 +1,53 @@
+<div class="container-post-details">
+    <div class="post-card-container">
+        <div class="post-card-content">
+            <h1 class="post-card-title">{{post.title}}</h1>
+            <div class="post-card-body">
+                <p>{{ post.body }}</p>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="post-card-container comments-container">
+        <div class="post-card-content">
+            <h1 class="post-card-title">Comments</h1>
+
+
+            <div class="post-comment-body" *ngFor="let comment of comments">
+                <h3 class="posted-comment-title"><b>{{ comment.name }}</b></h3>
+                 <p class="posted-comment-body">{{ comment.body }}</p>
+            </div>
+
+
+
+            <div class="post-comment-body">
+                <form #addCommentForm="ngForm" (ngSubmit)="onSubmit(addCommentForm); addCommentForm.resetForm()">
+
+                    <div class="field">
+                        <label class="label">Your Name</label>
+                        <div class="control">
+                            <input type="text" name="name" [(ngModel)]="comment.name" required class="input comment-name">
+                        </div>
+                    </div>
+
+
+                    <div class="field">
+                        <label class="label">Your Comment</label>
+                        <div class="control">
+                            <textarea name="body" [(ngModel)]="comment.body" required class="textarea comment-body"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-success submit" type="submit" [disabled]="!addCommentForm.valid">Comment</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+</div>

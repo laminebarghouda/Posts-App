@@ -1,0 +1,30 @@
+<div class="main-container">
+
+    <div class="search-bar-container">
+        <div class="field">
+            <p class="control has-icons-left">
+              <input class="input" type="text" placeholder="Filter">
+              <span class="icon is-small is-left">
+                <i class="fas fa-search"></i>
+              </span>
+            </p>
+          </div>
+    </div>
+
+    <div class="posts-list" [@listAnim]>
+        <app-post-card
+          class="post-card-item"
+          *ngFor="let post of posts"
+          [link]="post._id"
+          [@itemAnim]
+          (delete)="deletePost(post)"
+          [title]="post.title"
+          [body]="post.body">
+        </app-post-card>
+    </div>
+
+    <button
+    class="button floating-add-button is-primary" id="add-post-button"
+    routerLink="new">+ Add</button>
+
+</div>
